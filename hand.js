@@ -125,8 +125,8 @@
       onFrame: async () => {
         await hands.send({ image: videoEl });
       },
-      width: 1920,   // 1080p width
-      height: 1080   // 1080p height
+      width: window.innerWidth < 960 ? 640 : 1920,   // Lower resolution for mobile
+      height: window.innerWidth < 960 ? 480 : 1080,  // Lower resolution for mobile
     });
     cam.start();
   }

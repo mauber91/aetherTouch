@@ -25,7 +25,8 @@ function init() {
     const geometry = new THREE.BufferGeometry();
     const vertices = [];
     const colors = [];
-    const numParticles = 35000;
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const numParticles = isMobile ? 15000 : 35000; // Reduce particles for mobile
     const radius = 400; // Sphere radius
 
     for (let i = 0; i < numParticles; i++) {
@@ -57,7 +58,7 @@ function init() {
     geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
 
     material = new THREE.PointsMaterial({
-        size: 2,
+        size: isMobile ? 3 : 2, // Slightly larger particles on mobile
         sizeAttenuation: true,
         vertexColors: true
     });
@@ -72,6 +73,19 @@ function init() {
     // Add mouse down/up event listeners
     document.addEventListener('mousedown', () => isMouseDown = true);
     document.addEventListener('mouseup', () => isMouseDown = false);
+
+    // Add touch event listeners
+    document.addEventListener('touchmove', onDocumentTouchMove, false);
+    document.addEventListener('touchstart', () => isMouseDown = true);
+    document.addEventListener('touchend', () => isMouseDown = false);
+}
+
+// Add touch move handler
+function onDocumentTouchMove(event) {
+    event.preventDefault();
+    const touch = event.touches[0];
+    mouse.x = (touch.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(touch.clientY / window.innerHeight) * 2 + 1;
 }
 
 function onWindowResize() {

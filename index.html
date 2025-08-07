@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Refik Anadol Inspired Particle Animation</title>
     <style>
         body { margin: 0; }
@@ -21,6 +21,25 @@
             transform: translate(-50%, -50%);
             box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
             transition: background-color 0.3s ease;
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            #handCursor {
+                width: 16px;  /* Larger touch target on mobile */
+                height: 16px;
+            }
+            
+            #handcam {
+                width: 120px; /* Smaller debug view on mobile */
+            }
+        }
+        
+        /* Prevent scrolling/zooming on mobile */
+        html, body {
+            overflow: hidden;
+            position: fixed;
+            touch-action: none;
         }
     </style>
 </head>
