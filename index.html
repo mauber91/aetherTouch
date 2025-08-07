@@ -7,10 +7,21 @@
     <style>
         body { margin: 0; }
         canvas { display: block; }
+        /* Hidden webcam preview (enable opacity for debugging) */
+        #handcam { position: fixed; right: 8px; bottom: 8px; width: 180px; opacity: 50; pointer-events: none; }
     </style>
 </head>
 <body>
+    <!-- Hidden video for MediaPipe camera feed -->
+    <video id="handcam" playsinline muted></video>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="main.js"></script>
+
+    <!-- MediaPipe Hands and Camera Utils (for webcam + landmarks) -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+    <!-- Hand tracking to mouse event bridge -->
+    <script src="hand.js"></script>
 </body>
 </html>
