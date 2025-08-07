@@ -26,7 +26,7 @@ function init() {
     const vertices = [];
     const colors = [];
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    const numParticles = isMobile ? 15000 : 35000; // Reduce particles for mobile
+    const numParticles = isMobile ? 10000 : 30000; // Reduce particles for mobile
     const radius = 400; // Sphere radius
 
     for (let i = 0; i < numParticles; i++) {
