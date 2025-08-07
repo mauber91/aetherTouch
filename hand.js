@@ -79,6 +79,24 @@
       isDown = false; 
       dispatchMouse('mouseup', clientX, clientY);
     }
+
+    // Add this after your hand tracking setup
+    function updateHandCursor(x, y, isPressed) {
+        const cursor = document.getElementById('handCursor');
+        cursor.style.left = x + 'px';
+        cursor.style.top = y + 'px';
+        cursor.style.background = isPressed ? 'yellow' : 'white';
+    }
+
+    // Find where you process hand landmarks and add:
+    if (results.multiHandLandmarks) {
+        for (const landmarks of results.multiHandLandmarks) {
+            const indexFinger = landmarks[8];
+            const x = indexFinger.x * window.innerWidth;
+            const y = indexFinger.y * window.innerHeight;
+            updateHandCursor(x, y, pressed); // Pass the pressed state
+        }
+    }
   }
 
   // Initialize hand tracking and camera
@@ -94,11 +112,11 @@
 
     // MODIFICATION POINT 5: Adjust MediaPipe Hands options
     hands.setOptions({
-      maxNumHands: 1,         // increase to track multiple hands
-      modelComplexity: 1,     // 0=fastest/least accurate, 1=balanced
-      selfieMode: true,       // mirror the camera feed
-      minDetectionConfidence: 0.5,  // lower = more sensitive detection
-      minTrackingConfidence: 0.5    // lower = more stable tracking
+      maxNumHands: 1,
+      modelComplexity: 1.0,     // Increased from 0.9 to 1.0 for maximum accuracy
+      selfieMode: true,
+      minDetectionConfidence: 0.8,  // Increased from 0.5 to 0.8 for stricter detection
+      minTrackingConfidence: 0.5    // Increased from 0.1 to 0.5 for more stable tracking
     });
     hands.onResults(onResults);
 
@@ -107,8 +125,8 @@
       onFrame: async () => {
         await hands.send({ image: videoEl });
       },
-      width: 640,   // adjust camera resolution
-      height: 480
+      width: 1920,   // 1080p width
+      height: 1080   // 1080p height
     });
     cam.start();
   }

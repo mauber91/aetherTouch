@@ -9,11 +9,27 @@
         canvas { display: block; }
         /* Hidden webcam preview (enable opacity for debugging) */
         #handcam { position: fixed; right: 8px; bottom: 8px; width: 180px; opacity: 50; pointer-events: none; }
+
+        #handCursor {
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+            transition: background-color 0.3s ease;
+        }
     </style>
 </head>
 <body>
     <!-- Hidden video for MediaPipe camera feed -->
     <video id="handcam" playsinline muted></video>
+    
+    <!-- Hand cursor indicator -->
+    <div id="handCursor"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="main.js"></script>
